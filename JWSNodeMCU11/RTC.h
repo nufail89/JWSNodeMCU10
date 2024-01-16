@@ -3,7 +3,6 @@ char static hariN[][7] = {"AHAD", "SENIN", "SELASA", "RABU", "KAMIS", "JUM'AT", 
 char static pasaranN[][8] = {"KLIWON", "LEGI", "PAHING", "PON", "WAGE", "KLIWON"};
 char static bulanmN[][4] = {"DES", "JAN", "FEB", "MAR", "APR", "MEI", "JUN", "JUL", "AGU", "SEP", "OKT", "NOV", "DES" };
 char static bulanhN[][12] ={ "DZULHIJJAH", "MUHARRAM", "SHAFAR", "RAB. AWAL", "RAB. AKHIR", "JUM. ULA", "JUM.AKHIR", "RAJAB", "SYA'BAN", "RAMADLAN", "SYAWWAL", "DZULQO'DAH", "DZULHIJJAH"};
-char static sholatN[][9] = {"DHUHUR", "ASHAR", "MAGRIB", "ISYA", "IMSAK", "SUBUH", "SYURUQ", "DLUHA", "DHUHUR"};
                                       
 // ------------------------
 // SETUP RTC
@@ -122,8 +121,8 @@ void mulaiRTC() {
   
   Rtc.Enable32kHzPin(false);
   Rtc.SetSquareWavePin(DS3231SquareWavePin_ModeNone);
-  
-  Serial.println("Setup RTC selesai");
+  //Rtc.SetDateTime(RtcDateTime(2024, 01, 16, 11, 29, 5));
+  //Serial.println("Setup RTC selesai");
   
 }
 

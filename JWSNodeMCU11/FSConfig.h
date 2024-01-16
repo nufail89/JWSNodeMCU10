@@ -110,7 +110,7 @@ void LoadDataAwal() {
   if (configjws.altitude == 0) configjws.altitude = 10.0;
   if (configjws.zonawaktu == 0) configjws.zonawaktu = 7;
 
-  if (configdisp.kecerahan == 0) configdisp.kecerahan = 255;
+  if (configdisp.kecerahan == 0) configdisp.kecerahan = 254;
   if (configdisp.panel == 0) configdisp.panel = 2;
   if (strlen(configinfo.nama) == 0) strlcpy(configinfo.nama, "MASJID AL-FALAH", sizeof(configinfo.nama));
   if (strlen(configinfo.info1) == 0) strlcpy(configinfo.info1, "Ajun JWS", sizeof(configinfo.info1));
@@ -127,18 +127,18 @@ void LoadDataAwal() {
   if (configdf.volume == 0)    configdf.volume=23;
   if (strlen(configdf.equalizer) < 2) strlcpy(configdf.equalizer, "e1", sizeof(configdf.equalizer));
   if (configdf.tarhimmenits == 0)   configdf.tarhimmenits=27;
-  if (configdf.tarhimtracks == 0)   configdf.tarhimtracks=32;
+  if (configdf.tarhimtracks == 0)   configdf.tarhimtracks=8;
   if (configdf.tarhimmenitd == 0)   configdf.tarhimmenitd=11;
-  if (configdf.tarhimtrackd == 0)   configdf.tarhimtrackd=12;
+  if (configdf.tarhimtrackd == 0)   configdf.tarhimtrackd=3;
   if (configdf.tarhimmenita == 0)   configdf.tarhimmenita=11;
-  if (configdf.tarhimtracka == 0)   configdf.tarhimtracka=10;
+  if (configdf.tarhimtracka == 0)   configdf.tarhimtracka=1;
   if (configdf.tarhimmenitm == 0)   configdf.tarhimmenitm=21;
-  if (configdf.tarhimtrackm == 0)   configdf.tarhimtrackm=18;
+  if (configdf.tarhimtrackm == 0)   configdf.tarhimtrackm=7;
   if (configdf.tarhimmeniti == 0)   configdf.tarhimmeniti=9;
-  if (configdf.tarhimtracki == 0)   configdf.tarhimtracki=14;
+  if (configdf.tarhimtracki == 0)   configdf.tarhimtracki=5;
   if (configdf.tarhimmenitjm == 0)  configdf.tarhimmenitjm=60; //start sebelum adzan
-  if (configdf.tarhimmenitjh == 0)  configdf.tarhimmenitjh=4; //stop sebelum adzan
-  if (configdf.tarhimtrackj == 0)   configdf.tarhimtrackj=16;
+  if (configdf.tarhimmenitjh == 0)  configdf.tarhimmenitjh=10; //stop sebelum adzan
+  if (configdf.tarhimtrackj == 0)   configdf.tarhimtrackj=6;
   if (configdf.alarmadzan == 0)     configdf.alarmadzan=3;
   if (configdf.alarmtanbih == 0)    configdf.alarmtanbih=1;
 }

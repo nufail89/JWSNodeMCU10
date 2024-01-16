@@ -164,7 +164,7 @@ void drawSholat_S(int sNum,int c) { // Box Sholah Time
   get_float_time_parts(hisab.sholatT[sNum], shour, sminute, ssecond);
   sprintf(BuffTime,"%02d:%02d:%02d",shour,sminute,ssecond);
   Disp.drawRect(c+1,2,62,13);
-  fType(1); dwCtr(c,-1,sholatN[sNum]);
+  fType(1); dwCtr(c,-1,hisab.sholatN[sNum]);
   fType(0); dwCtr(c,10,BuffTime);
   DoSwap = true; 
 }

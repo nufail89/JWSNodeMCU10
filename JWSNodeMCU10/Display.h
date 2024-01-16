@@ -1,7 +1,8 @@
-//----------------------------
-// SETUP DMD HJS589
-
-
+#define DISPLAYS_WIDE 3 
+#define DISPLAYS_HIGH 1
+DMDESP      Disp(DISPLAYS_WIDE, DISPLAYS_HIGH);  // Jumlah Panel P10 yang digunakan (KOLOM,BARIS)
+int         DWidth  = Disp.width();
+int         DHeight = Disp.height();
 
 void ICACHE_RAM_ATTR refresh() { 
   

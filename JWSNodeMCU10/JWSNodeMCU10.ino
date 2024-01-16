@@ -26,11 +26,7 @@
 //==============================================
 #define BUZZ    A0
 #define Relay   2  //pin relay D4 (GPIO 2)
-#define DISPLAYS_WIDE 3 
-#define DISPLAYS_HIGH 1
-DMDESP      Disp(DISPLAYS_WIDE, DISPLAYS_HIGH);  // Jumlah Panel P10 yang digunakan (KOLOM,BARIS)
-int         DWidth  = Disp.width();
-int         DHeight = Disp.height();
+
 RtcDS3231<TwoWire>  Rtc(Wire);
 Hisab               hisab;
 char *      DispWaktu;
@@ -57,11 +53,7 @@ boolean         isConnected = false;
 
 void setup(){
   pinMode(BUZZ, OUTPUT);
-  digitalWrite(BUZZ, LOW);
-
   pinMode(Relay, OUTPUT);
-  digitalWrite(Relay, LOW);
-
   Serial.begin(115200);
   
   mulaiRTC();
@@ -105,6 +97,8 @@ void setup(){
   // DMDESP Setup
   Disp_init();
   Disp.setBrightness(configdisp.kecerahan);
+  digitalWrite(BUZZ, LOW);
+  digitalWrite(Relay, LOW);
 }
 
 void loop(){
@@ -219,7 +213,7 @@ void tampilIP(){
 }
 
 void check_azzan(){ //Check Waktu Sholat
-  WSNow  = -1;
+  WSNow  = 0;
   for(uint8_t i=0; i<8; i++){
     if (i!=0 && i!=2 && i!=3){  // bukan imsak, thulu' dan bukan dhuha
       if(secnow >= hisab.sholatTSec[i] ){
@@ -228,6 +222,7 @@ void check_azzan(){ //Check Waktu Sholat
           if(rHari==5 && WSNow==4) {jumat=true;}  //ketika hari Jumat dan Waktusholat sekarang adalah dhuhur
           // else jumat=false;
           azzan =true;
+          digitalWrite(Relay, LOW);
           RunSel = 100;
         }
       }
@@ -236,23 +231,23 @@ void check_azzan(){ //Check Waktu Sholat
 }
 
 void check_tartil(){
-  uint8_t tarhimmenit[8] = {0, configdf.tarhimmenits, configdf.tarhimmenitd, 0, 0, configdf.tarhimmenita, configdf.tarhimmenitm, configdf.tarhimmeniti};
-  uint8_t tarhimtracks[8] = {0, configdf.tarhimtracks, configdf.tarhimtrackd, 0, 0, configdf.tarhimtracka, configdf.tarhimtrackm, configdf.tarhimtracki};
+  uint8_t tarhimmenit[8] = {0, configdf.tarhimmenits, 0, 0, configdf.tarhimmenitd, configdf.tarhimmenita, configdf.tarhimmenitm, configdf.tarhimmeniti};
+  uint8_t tarhimtracks[8] = {0, configdf.tarhimtracks, 0, 0, configdf.tarhimtrackd, configdf.tarhimtracka, configdf.tarhimtrackm, configdf.tarhimtracki};
   if(rHari==5) {
     tarhimmenit[2]=configdf.tarhimmenitjm; //ada di index thulu' karena diskip pada saat cek azan
     tarhimtracks[2]=configdf.tarhimtrackj;
   }
   uint8_t WSNext = (WSNow+1)%8;
-  uint32_t waktu_muni=hisab.sholatTSec[WSNext]-tarhimmenit[WSNext]*60;
+  if(WSNext==2) WSNext = 4;
+  uint32_t waktu_muni=hisab.sholatTSec[WSNext]-tarhimmenit[WSNext]*60-5;
+  // Serial.print("ws next: ");Serial.println(WSNext);
   // Serial.print("secnow: ");Serial.println(secnow);
   // Serial.print("waktu muni : ");Serial.println(waktu_muni);
-  if(tarhimmenit[WSNext]>0){
-    if(secnow==waktu_muni){
-      if(digitalRead(Relay)==LOW){
-        digitalWrite(Relay, HIGH);
-        mp3.playFolderTrack(2, tarhimtracks[WSNext]);
-      }
-    }
+  // Serial.print("Status Relay : ");Serial.println(digitalRead(Relay));
+  if(secnow==waktu_muni && digitalRead(Relay)==0){
+    digitalWrite(Relay, HIGH);
+    delay(5000);
+    mp3.playMp3FolderTrack(tarhimtracks[WSNext]);
   }
 }
 
