@@ -239,7 +239,7 @@ void check_tartil(){
   }
   uint8_t WSNext = (WSNow+1)%8;
   if(WSNext==2) WSNext = 4;
-  uint32_t waktu_muni=hisab.sholatTSec[WSNext]-tarhimmenit[WSNext]*60;
+  uint32_t waktu_muni=hisab.sholatTSec[WSNext]-tarhimmenit[WSNext]*60-5;
   // Serial.print("ws next: ");Serial.println(WSNext);
   // Serial.print("secnow: ");Serial.println(secnow);
   // Serial.print("waktu muni : ");Serial.println(waktu_muni);
@@ -247,9 +247,9 @@ void check_tartil(){
   // Serial.print("Status Relay : ");Serial.println(digitalRead(Relay));
   if(secnow==waktu_muni && digitalRead(Relay)==0){
     digitalWrite(Relay, HIGH);
-    // delay(5000);
-    // mp3.playFolderTrack(1, tarhimtracks[WSNext]);
-    mp3.playMp3FolderTrack(tarhimtracks[WSNext]);
+    delay(5000);
+    mp3.playFolderTrack(15, tarhimtracks[WSNext]);
+    // mp3.playMp3FolderTrack(tarhimtracks[WSNext]);
   }
 }
 
